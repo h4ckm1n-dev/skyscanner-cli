@@ -1,13 +1,14 @@
 {
   "name": "skyscanner-cli",
   "version": "1.0.0",
-  "description": "Interface en ligne de commande pour rechercher des vols via Skyscanner",
-  "main": "index.js",
+  "description": "Interface CLI pour rechercher des vols via l'API Skyscanner",
+  "main": "bin/skyscanner-cli.js",
   "bin": {
-    "skyscanner": "./index.js"
+    "skyscanner": "./bin/skyscanner-cli.js"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node bin/skyscanner-cli.js",
+    "dev": "nodemon bin/skyscanner-cli.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -19,11 +20,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.6.0",
+    "axios": "^1.6.7",
     "chalk": "^4.1.2",
     "commander": "^11.1.0",
     "dotenv": "^16.3.1",
-    "inquirer": "^8.2.6",
+    "inquirer": "^8.2.5",
     "ora": "^5.4.1"
   }
 }
