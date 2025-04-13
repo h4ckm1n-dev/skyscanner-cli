@@ -231,7 +231,7 @@ async function displayPaginatedResults(flights) {
     return;
   }
   
-  const PAGE_SIZE = 3; // Nombre de vols par page
+  const PAGE_SIZE = 10; // Nombre de vols par page
   let currentPage = 0;
   const totalPages = Math.ceil(flights.length / PAGE_SIZE);
   
