@@ -18,6 +18,11 @@ Interface en ligne de commande pour rechercher des vols via l'API Skyscanner.
 - Dates par défaut intelligentes
 - Validation complète des entrées utilisateur
 - Tri par prix croissant
+- **Filtres avancés** pour affiner votre recherche:
+  - Prix maximum
+  - Nombre maximal d'escales
+  - Compagnies aériennes préférées
+  - Options de tri (prix, durée, horaires)
 
 ## Installation
 
@@ -101,6 +106,20 @@ L'application vous guide à travers les étapes suivantes :
 5. **Résultats**
    - Affichage détaillé des vols disponibles
    - Prix, escales, durée, compagnies aériennes
+   - Pagination pour faciliter la navigation
+   - Option de filtrage avancé
+
+## Filtres avancés
+
+Après avoir obtenu vos résultats de recherche, vous pouvez appliquer des filtres:
+
+- **Prix maximum** - Définissez un budget maximal pour votre vol
+- **Nombre d'escales** - Filtrez par vols directs ou avec un nombre limité d'escales
+- **Compagnies aériennes** - Sélectionnez vos transporteurs préférés
+- **Options de tri**:
+  - Prix (croissant/décroissant)
+  - Durée (plus court en premier)
+  - Heure de départ (plus tôt/plus tard)
 
 ## Exemples d'utilisation
 
@@ -131,6 +150,28 @@ Sélectionnez un lieu de destination:
 > Date de retour (YYYY-MM-DD): 2023-12-22
 > Classe de voyage: Économique
 > Nombre d'adultes: 1
+
+Recherche de vols...
+
+RÉSULTATS:
+Vol #1: Air France - 599€
+CDG 10:25 → JFK 13:05 (Direct, 8h40)
+JFK 17:30 → CDG 06:45+1 (Direct, 7h15)
+
+Vol #2: United Airlines - 632€
+...
+
+Souhaitez-vous filtrer ces résultats? Oui
+
+Prix maximum (EUR): 700
+Nombre maximal d'escales: Vol direct uniquement
+Compagnies aériennes: Air France
+Trier par: Prix (croissant)
+
+RÉSULTATS FILTRÉS:
+Vol #1: Air France - 599€
+CDG 10:25 → JFK 13:05 (Direct, 8h40)
+JFK 17:30 → CDG 06:45+1 (Direct, 7h15)
 ```
 
 ### Afficher les aéroports populaires :
@@ -162,10 +203,11 @@ RAPIDAPI_HOST=nom_hote_api.p.rapidapi.com
 
 **Note importante** : Les API Skyscanner sur RapidAPI évoluent fréquemment. L'application est conçue pour utiliser les données mockées si l'API n'est pas disponible ou ne renvoie pas de résultats.
 
-## Licence
+## Dépendances
 
-ISC
-
-## Notes
-
-Cette application a été développée pour offrir une expérience utilisateur optimale en ligne de commande pour la recherche de vols. Les données mockées sont basées sur des estimations réalistes de prix et de durées de vol.
+- axios - Pour les requêtes HTTP
+- chalk - Pour la coloration du texte dans le terminal
+- commander - Pour la gestion des commandes CLI
+- dotenv - Pour la gestion des variables d'environnement
+- inquirer - Pour les interfaces interactives
+- ora - Pour les indicateurs de chargement
