@@ -1,52 +1,53 @@
 # Skyscanner CLI
 
-Interface en ligne de commande pour rechercher des vols via l'API Skyscanner directement depuis votre terminal.
+Command-line interface to search for flights via the Skyscanner API directly from your terminal.
 
-## Fonctionnalités
+## Features
 
-- 🔍 Recherche intelligente d'aéroports et de villes avec autocomplétion
-- 🌐 Recherche de vols internationaux et domestiques
-- 🔄 Filtrage avancé des résultats par prix, durée, escales et compagnies
-- 📋 Affichage des résultats avec pagination
-- 📊 Visualisation détaillée des itinéraires
-- 📱 Génération de liens directs vers Skyscanner pour la réservation
-- 📄 Génération de rapports Markdown avec liens cliquables
+- 🔍 Intelligent search for airports and cities with autocompletion
+- 🌐 Search for international and domestic flights
+- 🔄 Advanced filtering of results by price, duration, stops, and airlines
+- 🔁 Support for both one-way and round-trip flights
+- 📋 Display of results with pagination
+- 📊 Detailed visualization of itineraries
+- 📱 Generation of direct links to Skyscanner for booking
+- 📄 Generation of Markdown reports with clickable links
 
 ## Installation
 
-### Prérequis
+### Prerequisites
 
 - Node.js v14+
-- npm ou yarn
+- npm or yarn
 
-### Installation globale
+### Global Installation
 
 ```bash
 npm install -g skyscanner-cli
 ```
 
-### Installation locale
+### Local Installation
 
 ```bash
-# Cloner le dépôt
-git clone https://github.com/votre-utilisateur/skyscanner-cli.git
+# Clone the repository
+git clone https://github.com/your-username/skyscanner-cli.git
 cd skyscanner-cli
 
-# Installer les dépendances
+# Install dependencies
 npm install
 
-# Lier en tant que commande globale (optionnel)
+# Link as a global command (optional)
 npm link
 ```
 
 ## Configuration
 
-1. Créez un fichier `.env` à la racine du projet (vous pouvez utiliser `.env.example` comme modèle)
-2. Renseignez les variables d'environnement nécessaires:
+1. Create an `.env` file at the root of the project (you can use `.env.example` as a template)
+2. Fill in the necessary environment variables:
 
 ```
 # API Configuration
-API_KEY=votre_clé_api_ici
+API_KEY=your_api_key_here
 API_HOST=skyscanner-api-host.com
 
 # Debug options
@@ -55,102 +56,118 @@ USE_MOCK_DATA=false
 USE_REAL_API=true
 
 # Defaults
-DEFAULT_MARKET=FR
-DEFAULT_CURRENCY=EUR
-DEFAULT_LOCALE=fr-FR
+DEFAULT_MARKET=US
+DEFAULT_CURRENCY=USD
+DEFAULT_LOCALE=en-US
 ```
 
-## Utilisation
+## Usage
 
-### Utilisation en ligne de commande
+### Command Line Usage
 
 ```bash
-# Lancer l'application interactive
+# Launch the interactive application
 skyscanner
 
-# Rechercher des vols
+# Search for flights
 skyscanner search
 ```
 
-### Utilisation comme module
+### Usage as a Module
 
 ```javascript
 const { searchFlights } = require("skyscanner-cli/lib/api");
 
 async function findFlights() {
   const flights = await searchFlights({
-    originId: "PARI",
-    destinationId: "LOND",
+    originId: "NYC",
+    destinationId: "LON",
     departureDate: "2025-05-20",
     adults: "1",
   });
 
-  console.log(`Trouvé ${flights.length} vols!`);
+  console.log(`Found ${flights.length} flights!`);
 }
 
 findFlights();
 ```
 
-## Structure du Projet
+## Project Structure
 
 ```
 skyscanner-cli/
-├── bin/                  # Scripts exécutables
-│   └── skyscanner-cli.js # Point d'entrée principal
-├── lib/                  # Bibliothèques et modules
-│   ├── api.js            # API Skyscanner
-│   ├── formatter.js      # Formatage des résultats
-│   └── utils/            # Utilitaires
-│       ├── api-tester.js        # Tests d'API
-│       ├── cli-tools.js          # Outils CLI
-│       └── deeplink-extractor.js # Gestion de deeplinks
-├── reports/              # Rapports générés en MD
-├── .env                  # Configuration locale
-├── .env.example          # Exemple de configuration
-├── package.json          # Dépendances et scripts
+├── bin/                  # Executable scripts
+│   └── skyscanner-cli.js # Main entry point
+├── lib/                  # Libraries and modules
+│   ├── api.js            # Skyscanner API
+│   ├── formatter.js      # Results formatting
+│   └── utils/            # Utilities
+│       ├── api-tester.js        # API tests
+│       ├── cli-tools.js          # CLI tools
+│       └── deeplink-extractor.js # Deeplink management
+├── reports/              # Generated MD reports
+├── .env                  # Local configuration
+├── .env.example          # Configuration example
+├── package.json          # Dependencies and scripts
 └── README.md             # Documentation
 ```
 
-## Rapport Markdown
+## Interactive Search Flow
 
-L'application génère automatiquement un rapport Markdown pour chaque recherche de vol. Ce rapport contient:
+When using the CLI, you'll go through the following steps:
 
-- Un résumé de la recherche
-- Des informations détaillées sur chaque vol
-- Des liens cliquables vers Skyscanner pour la réservation
+1. **Enter departure location**: Type a city or airport name and select from the autocomplete results
+2. **Enter destination**: Same as above
+3. **Choose trip type**: One-way or round-trip
+4. **Enter dates**: Departure date (and return date for round trips)
+5. **Select passengers**: Number of adult travelers
+6. **Select cabin class**: Economy, Premium Economy, Business, or First Class
+7. **Confirm your search**: Review details and start the search
+8. **Filter results** (optional): By price, number of stops, airlines, etc.
+9. **Browse results**: Navigate through pages of flight options
+10. **View details**: See comprehensive information about selected flights
+11. **Get booking links**: Follow direct links to complete your booking on Skyscanner
 
-Exemple de rapport:
+## Markdown Report
+
+The application automatically generates a Markdown report for each flight search. This report contains:
+
+- A summary of the search
+- Detailed information about each flight
+- Clickable links to Skyscanner for booking
+
+Example report:
 
 ```markdown
-# 🛫 Rapport de Recherche de Vols
+# 🛫 Flight Search Report
 
-_Généré le 13/04/2024 à 16:45:09_
+_Generated on 04/13/2024 at 4:45:09 PM_
 
-## 📊 Résumé
+## 📊 Summary
 
-- **Nombre de vols trouvés**: 3
-- **Prix minimum**: 31.00 EUR
-- **Prix maximum**: 36.00 EUR
+- **Number of flights found**: 3
+- **Minimum price**: 31.00 USD
+- **Maximum price**: 36.00 USD
 
-## 🎫 Résultats Détaillés
+## 🎫 Detailed Results
 
-### Vol 1 🏆 MEILLEUR PRIX
+### Flight 1 🏆 BEST PRICE
 
-**Prix**: **31.00 EUR**
+**Price**: **31.00 USD**
 
-**Durée totale**: 1h10
+**Total duration**: 1h10
 
-#### 🛫 ALLER - 1h10 (Direct)
+#### 🛫 OUTBOUND - 1h10 (Direct)
 
-_Mar 20/05_
+_Tue 05/20_
 
-| Compagnie           | Vol  | Départ            | Arrivée           | Durée |
-| ------------------- | ---- | ----------------- | ----------------- | ----- |
-| ✈️ Vueling Airlines | 8942 | 20/05 06:50 (ORY) | 20/05 07:00 (LGW) | 1h10  |
+| Airline             | Flight | Departure         | Arrival           | Duration |
+| ------------------- | ------ | ----------------- | ----------------- | -------- |
+| ✈️ Vueling Airlines | 8942   | 05/20 06:50 (JFK) | 05/20 07:00 (LHR) | 1h10     |
 
-**[🔗 Réserver ce vol](https://www.skyscanner.fr/...)**
+**[🔗 Book this flight](https://www.skyscanner.com/...)**
 ```
 
-## Licence
+## License
 
 ISC
